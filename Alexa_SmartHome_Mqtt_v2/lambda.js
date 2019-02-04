@@ -11,7 +11,7 @@ clientId += new Date().getUTCMilliseconds();;
 var myusername = "smoccia";
 var mypassword = "ac7b6bfdab824cfab74b9140e6a85cda";
 var subscription = "smoccia/f/status";
-
+/*
 mqttClient = Paho.connect('mqtts://io.adafruit.com',{
     port: 8883,
     username: myusername,
@@ -21,7 +21,7 @@ mqttClient = Paho.connect('mqtts://io.adafruit.com',{
 mqttClient.onMessageArrived = MessageArrived;
 mqttClient.onConnectionLost = ConnectionLost;
 Connect();
-
+*/
 
 /*Initiates a connection to the MQTT broker*/
 function Connect() {

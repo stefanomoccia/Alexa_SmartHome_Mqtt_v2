@@ -1,0 +1,72 @@
+{
+  "EDITOR_STATE": {
+    "allProjectFiles": {
+      "11d1ed3b-c055-4268-ab88-31b145da6be2": {
+        "id": "11d1ed3b-c055-4268-ab88-31b145da6be2",
+        "parent": null,
+        "name": "Alexa_SmartHome_Mqtt_v2",
+        "type": "DIRECTORY",
+        "isDirectory": true,
+        "children": [
+          "e85981a2-3b94-4aa8-b93a-dff40f1c8016"
+        ],
+        "isRemovable": false,
+        "filePath": "Alexa_SmartHome_Mqtt_v2"
+      },
+      "e85981a2-3b94-4aa8-b93a-dff40f1c8016": {
+        "id": "e85981a2-3b94-4aa8-b93a-dff40f1c8016",
+        "parent": "11d1ed3b-c055-4268-ab88-31b145da6be2",
+        "name": "lambda.js",
+        "type": "LAMBDA_FILE",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "Alexa_SmartHome_Mqtt_v2/lambda.js",
+        "code": "var http = require('http');\n\nvar Paho = require('mqtt')\n/*\n\t* MQTT-WebClient example for Web-IO 4.0\n*/\nvar hostname = \"io.adafruit.com\";\nvar port = 8883;\nvar clientId = \"clientId\";\nclientId += new Date().getUTCMilliseconds();;\nvar myusername = \"smoccia\";\nvar mypassword = \"ac7b6bfdab824cfab74b9140e6a85cda\";\nvar subscription = \"smoccia/f/status\";\n\n/* mqttClient = Paho.connect('mqtts://io.adafruit.com',{\n    port: 8883,\n    username: myusername,\n    password: mypassword\n  });\n\nmqttClient.onMessageArrived = MessageArrived;\nmqttClient.onConnectionLost = ConnectionLost;\n//Connect();\n*/\n\n/*Initiates a connection to the MQTT broker*/\nfunction Connect() {\n    mqttClient.connect({\n        onSuccess: Connected,\n        onFailure: ConnectionFailed,\n        //keepAliveInterval: 0,\n        userName: username,\n        useSSL: true,\n        password: password\n    });\n}\n\n/*Callback for successful MQTT connection */\nfunction Connected() {\n    console.log(\"Connected\");\n    mqttClient.subscribe(subscription);\n}\n\n/*Callback for failed connection*/\nfunction ConnectionFailed(res) {\n    console.log(\"Connect failed:\" + res.errorMessage);\n}\n\n/*Callback for lost connection*/\nfunction ConnectionLost(res) {\n    if (res.errorCode !== 0) {\n        console.log(\"Connection lost:\" + res.errorMessage);\n        Connect();\n    }\n}\n\n/*Callback for incoming message processing */\nfunction MessageArrived(message) {\n    console.log(message.destinationName + \" : \" + message.payloadString);\n    switch (message.payloadString) {\n        case \"ON\":\n            displayClass = \"on\";\n            break;\n        case \"OFF\":\n            displayClass = \"off\";\n            break;\n        default:\n            displayClass = \"unknown\";\n    }\n    var topic = message.destinationName.split(\"/\");\n    if (topic.length == 3) {\n        var ioname = topic[1];\n        UpdateElement(ioname, displayClass);\n    }\n}\n\nfunction buildSpeechletResponse(title, output, repromptText, shouldEndSession) {\n    return {\n        outputSpeech: {\n            type: 'PlainText',\n            text: output,\n        },\n        card: {\n            type: 'Simple',\n            title: `SessionSpeechlet - ${title}`,\n            content: `SessionSpeechlet - ${output}`,\n        },\n        reprompt: {\n            outputSpeech: {\n                type: 'PlainText',\n                text: repromptText,\n            },\n        },\n        shouldEndSession,\n    };\n}\nfunction buildResponse(sessionAttributes, speechletResponse) {\n    return {\n        version: '1.0',\n        sessionAttributes,\n        response: speechletResponse,\n    };\n}\n\n\nfunction onSessionStarted(sessionStartedRequest, session) {\n    console.log(`onSessionStarted requestId=${sessionStartedRequest.requestId}, sessionId=${session.sessionId}`);\n}\n\nfunction onLaunch(launchRequest, session, callback) {\n    console.log(`onLaunch requestId=${launchRequest.requestId}, sessionId=${session.sessionId}`);\n    // Dispatch to your skill's launch.\n    getWelcomeResponse(callback);\n}\n\nfunction getWelcomeResponse(callback) {\n    const sessionAttributes = {};\n    const cardTitle = 'Welcome';\n    const speechOutput = 'Welcome to the Smart Home application of Moccias';\n\n    const repromptText = 'Which light should I control ?';\n    const shouldEndSession = false;\n    callback(sessionAttributes,\n        buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));\n}\n\n\nfunction onIntent(intentRequest, session, callback) {\n    console.log(`onIntent requestId=${intentRequest.requestId}, sessionId=${session.sessionId}`);\n    const intent = intentRequest.intent;\n    const intentName = intentRequest.intent.name;\n    // Dispatch to your skill's intent handlers\n    if (intentName === 'AMAZON.HelpIntent') {\n        getWelcomeResponse(callback);\n    } else if (intentName === 'AMAZON.StopIntent') {\n        handleSessionEndRequest(callback);\n    } else if (intentName === 'lights') {\n        var color = intent.slots.color.value;\n        var lightstatus = intent.slots.lightstatus.value;\n        lights(callback, color, lightstatus);\n    } else if (intentName === 'HelloWorldIntent') {\n        securelight(callback);\n    }\n}\n\nfunction handleSessionEndRequest(callback) {\n    const cardTitle = 'Session Ended';\n    const speechOutput = 'Thank you for using Smart Home application of Moccias, have a nice day!';\n    const shouldEndSession = true;\n    callback({}, buildSpeechletResponse(cardTitle, speechOutput, null, shouldEndSession));\n}\n\n\n\nfunction lights(callback, color, lightstatus) {\n\n    var _switch = \"\";\n    var _status = \"\";\n\n    if (color == \"red\")\n        _switch = \"V1\";\n    else if (color == \"green\")\n        _switch = \"V2\";\n    else if (color == \"orange\")\n        _switch = \"V0\";\n    else\n        _switch = \"error\";\n\n    if (lightstatus == \"on\")\n        _status = \"1\";\n    else if (lightstatus == \"off\")\n        _status = \"0\";\n\n    var endpoint = \"http://13.232.30.228:8080/ad05422526054585af9097a984f0177f/update/\" + _switch + \"?value=\" + _status;\n    var status = \"offline\";\n    var body = \"\";\n    http.get(endpoint, (response) => {\n        console.log(\"Got response: \" + response.statusCode)\n        response.on('data', (chunk) => { body += chunk })\n        response.on('end', () => {\n        })\n    });\n\n    const sessionAttributes = {};\n\n    //Get card title from data\n    const cardTitle = 'device status';\n\n    //Get output from data\n    const speechOutput = 'The  ' + color + '  light is turned ' + lightstatus;\n    const repromptText = '';\n    const shouldEndSession = false;\n    callback(sessionAttributes,\n        buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));\n}\n\n\nfunction securelight(callback) {\n\n    const sessionAttributes = {};\n\n    //Get card title from data\n    const cardTitle = 'device status';\n\n    //Get output from data\n    const speechOutput = 'The hood light is switched off ';\n    const repromptText = '';\n    const shouldEndSession = false;\n    callback(sessionAttributes,\n        buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));\n}\n\n\n\nfunction onSessionEnded(sessionEndedRequest, session) {\n    console.log(`onSessionEnded requestId=${sessionEndedRequest.requestId}, sessionId=${session.sessionId}`);\n    // Add cleanup logic here\n}\n\nexports.handler = (event, context, callback) => {\n    try {\n        console.log(`event.session.application.applicationId=${event.session.application.applicationId}`);\n\n\n        if (event.session.new) {\n            onSessionStarted({ requestId: event.request.requestId }, event.session);\n        }\n        if (event.request.type === 'LaunchRequest') {\n            onLaunch(event.request,\n                event.session,\n                (sessionAttributes, speechletResponse) => {\n                    callback(null, buildResponse(sessionAttributes, speechletResponse));\n                });\n        } else if (event.request.type === 'IntentRequest') {\n            onIntent(event.request,\n                event.session,\n                (sessionAttributes, speechletResponse) => {\n                    callback(null, buildResponse(sessionAttributes, speechletResponse));\n                });\n        } else if (event.request.type === 'SessionEndedRequest') {\n            onSessionEnded(event.request, event.session);\n            callback();\n        }\n    } catch (err) {\n        callback(err);\n    }\n};",
+        "triggers": [],
+        "config": {
+          "runtime": "nodejs8.10",
+          "timeout": 60,
+          "memory": 128
+        }
+      }
+    },
+    "deletedFiles": [],
+    "rootNode": "11d1ed3b-c055-4268-ab88-31b145da6be2",
+    "openFiles": [
+      "e85981a2-3b94-4aa8-b93a-dff40f1c8016"
+    ],
+    "currentFileId": "e85981a2-3b94-4aa8-b93a-dff40f1c8016",
+    "resources": {},
+    "envVariables": [
+      {
+        "lambdaId": "all",
+        "varKey": "SIGMA_AWS_ACC_ID",
+        "varValue": null,
+        "shouldPersist": false,
+        "displayOnly": false,
+        "editable": false
+      }
+    ],
+    "packageJSON": {
+      "dependencies": {}
+    },
+    "lambdaId": "e85981a2-3b94-4aa8-b93a-dff40f1c8016"
+  },
+  "PROJECT_META": {
+    "projectName": "Alexa_SmartHome_Mqtt_v2",
+    "projectDescription": "SmartHome_Mqtt_v2",
+    "projectVersion": "1.0.0",
+    "projectRegion": "eu-west-1",
+    "platform": "AWS",
+    "platformRegions": {},
+    "lastSave": 1549298413241
+  },
+  "VCS_STATE": {
+    "provider": "GitHub",
+    "repo": {
+      "name": "Alexa_SmartHome_Mqtt_v2",
+      "url": "https://github.com/stefanomoccia/Alexa_SmartHome_Mqtt_v2"
+    }
+  }
+}

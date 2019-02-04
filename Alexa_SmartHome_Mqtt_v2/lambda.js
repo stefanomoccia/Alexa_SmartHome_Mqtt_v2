@@ -203,7 +203,7 @@ function securelight(callback) {
     const cardTitle = 'device status';
 
     //Get output from data
-    const speechOutput = 'The hood light is switched off ';
+    const speechOutput = 'Giuly e Simo siete le regine di questa casa e Ste vi vuole tanto bene';
     const repromptText = '';
     const shouldEndSession = false;
     callback(sessionAttributes,

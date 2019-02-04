@@ -1,5 +1,7 @@
 {
   "name": "Alexa_SmartHome_Mqtt_v2",
   "version": "1.0.0",
-  "dependencies": {}
+  "dependencies": {
+    "adafruit-io": "4.4.0"
+  }
 }

@@ -28,6 +28,14 @@
           "runtime": "nodejs8.10",
           "timeout": 60,
           "memory": 128
+        },
+        "testCases": {
+          "3f32debb-658f-45a8-9062-92a733af79db": {
+            "id": "3f32debb-658f-45a8-9062-92a733af79db",
+            "name": "TestHello",
+            "functionId": "e85981a2-3b94-4aa8-b93a-dff40f1c8016",
+            "event": "{\n\t\"version\": \"1.0\",\n\t\"session\": {\n\t\t\"new\": false,\n\t\t\"sessionId\": \"amzn1.echo-api.session.df4b61da-3966-4204-b88b-94729aad4c4e\",\n\t\t\"application\": {\n\t\t\t\"applicationId\": \"amzn1.ask.skill.3f85b357-0f14-4442-abd0-b1212d0256d5\"\n\t\t},\n\t\t\"user\": {\n\t\t\t\"userId\": \"amzn1.ask.account.AFYR2UUR7A2FUUWLKHOZAY3MEJEPWMM5LGZNQJOV7Y4JDWMOM6B344X7AKN7L6ECFVJTMZDUJY73YAS62TBKYVMC65XTPEMNDTVJ5PM3GR2GXGWZBO5WJMM2RVXKVXRDMGHZX5XPQ3KWEXWLITABAN2MXSS2OQHT3T7YC4ZVXT7IA7357UCQWCELBRDSTHSET7GXSUUHMRBP3IA\"\n\t\t}\n\t},\n\t\"context\": {\n\t\t\"System\": {\n\t\t\t\"application\": {\n\t\t\t\t\"applicationId\": \"amzn1.ask.skill.3f85b357-0f14-4442-abd0-b1212d0256d5\"\n\t\t\t},\n\t\t\t\"user\": {\n\t\t\t\t\"userId\": \"amzn1.ask.account.AFYR2UUR7A2FUUWLKHOZAY3MEJEPWMM5LGZNQJOV7Y4JDWMOM6B344X7AKN7L6ECFVJTMZDUJY73YAS62TBKYVMC65XTPEMNDTVJ5PM3GR2GXGWZBO5WJMM2RVXKVXRDMGHZX5XPQ3KWEXWLITABAN2MXSS2OQHT3T7YC4ZVXT7IA7357UCQWCELBRDSTHSET7GXSUUHMRBP3IA\"\n\t\t\t},\n\t\t\t\"device\": {\n\t\t\t\t\"deviceId\": \"amzn1.ask.device.AHS6HUBMC3PCNA5RN2ZJEQNP3QD6SKOFAVAZR4ZIXMLVRYEM3VVJQRJTXJN2K4UO2TJD3T5HUMPMHQILWAJOQ4DLWHMW6QBSXS5LJEFJ6CHG4FCEAIG4CZ5U2UPVQFNB6Y7CWOVAQKOT6ZD2Z2KOJTYCSO4DP7QFLJVVQ4PIRO7HKYXIGY5MG\",\n\t\t\t\t\"supportedInterfaces\": {}\n\t\t\t},\n\t\t\t\"apiEndpoint\": \"https://api.eu.amazonalexa.com\",\n\t\t\t\"apiAccessToken\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjEifQ.eyJhdWQiOiJodHRwczovL2FwaS5hbWF6b25hbGV4YS5jb20iLCJpc3MiOiJBbGV4YVNraWxsS2l0Iiwic3ViIjoiYW16bjEuYXNrLnNraWxsLjNmODViMzU3LTBmMTQtNDQ0Mi1hYmQwLWIxMjEyZDAyNTZkNSIsImV4cCI6MTU0Njg3NDQ2NCwiaWF0IjoxNTQ2ODcwODY0LCJuYmYiOjE1NDY4NzA4NjQsInByaXZhdGVDbGFpbXMiOnsiY29uc2VudFRva2VuIjpudWxsLCJkZXZpY2VJZCI6ImFtem4xLmFzay5kZXZpY2UuQUhTNkhVQk1DM1BDTkE1Uk4yWkpFUU5QM1FENlNLT0ZBVkFaUjRaSVhNTFZSWUVNM1ZWSlFSSlRYSk4ySzRVTzJUSkQzVDVIVU1QTUhRSUxXQUpPUTRETFdITVc2UUJTWFM1TEpFRko2Q0hHNEZDRUFJRzRDWjVVMlVQVlFGTkI2WTdDV09WQVFLT1Q2WkQyWjJLT0pUWUNTTzREUDdRRkxKVlZRNFBJUk83SEtZWElHWTVNRyIsInVzZXJJZCI6ImFtem4xLmFzay5hY2NvdW50LkFGWVIyVVVSN0EyRlVVV0xLSE9aQVkzTUVKRVBXTU01TEdaTlFKT1Y3WTRKRFdNT002QjM0NFg3QUtON0w2RUNGVkpUTVpEVUpZNzNZQVM2MlRCS1lWTUM2NVhUUEVNTkRUVko1UE0zR1IyR1hHV1pCTzVXSk1NMlJWWEtWWFJETUdIWlg1WFBRM0tXRVhXTElUQUJBTjJNWFNTMk9RSFQzVDdZQzRaVlhUN0lBNzM1N1VDUVdDRUxCUkRTVEhTRVQ3R1hTVVVITVJCUDNJQSJ9fQ.QqugwdtoNKPkR-h57v5aAhxqG3UxYwgnrG3-DVa9k6LrXA82EhOIgIGBKXtSHJ-3mqFmlBBoUnTfOB3xKQTXaLWFoIW8qOaC46OMDzSxQeo9achlxETALpi7UirG6FeOmfW5MRKCRNEL7YLsFFYuxe6pULJEYdLVd01KqUvJtH6nuzlPiYtkiqTp2XnW6ax_oFgO8yFakMd4M_W8BiUqjkVG5evW4_5VuIpJixa9N-RaAJEGIzRGFR1lBo5Cod6M5ew5Vy8YctzSJ-JDmCDN4v_JF-x909JOt3u_KdmRRrw-AVLoS6s87nrjeRVfzuTstFIHVTIdvj9sQtQ3oOFtag\"\n\t\t},\n\t\t\"Viewport\": {\n\t\t\t\"experiences\": [\n\t\t\t\t{\n\t\t\t\t\t\"arcMinuteWidth\": 246,\n\t\t\t\t\t\"arcMinuteHeight\": 144,\n\t\t\t\t\t\"canRotate\": false,\n\t\t\t\t\t\"canResize\": false\n\t\t\t\t}\n\t\t\t],\n\t\t\t\"shape\": \"RECTANGLE\",\n\t\t\t\"pixelWidth\": 1024,\n\t\t\t\"pixelHeight\": 600,\n\t\t\t\"dpi\": 160,\n\t\t\t\"currentPixelWidth\": 1024,\n\t\t\t\"currentPixelHeight\": 600,\n\n\t\t\t\"touch\": [\n\t\t\t\t\"SINGLE\"\n\t\t\t]\n\t\t}\n\t},\n\t\"request\": {\n\t\t\"type\": \"IntentRequest\",\n\t\t\"requestId\": \"amzn1.echo-api.request.12d76dc7-bc28-494b-bbcf-a68a5f722a78\",\n\t\t\"timestamp\": \"2019-01-07T14:21:04Z\",\n\t\t\"locale\": \"en-US\",\n\t\t\"intent\": {\n\t\t\t\"name\": \"HelloWorldIntent\",\n\t\t\t\"confirmationStatus\": \"NONE\"\n\t\t}\n\t}\n}"
+          }
         }
       }
     },
@@ -49,7 +57,12 @@
       }
     ],
     "packageJSON": {
-      "dependencies": {}
+      "dependencies": {
+        "adafruit-io": {
+          "name": "adafruit-io",
+          "version": "4.4.0"
+        }
+      }
     },
     "lambdaId": "e85981a2-3b94-4aa8-b93a-dff40f1c8016"
   },
@@ -60,7 +73,7 @@
     "projectRegion": "eu-west-1",
     "platform": "AWS",
     "platformRegions": {},
-    "lastSave": 1549298413241
+    "lastSave": 1549298801360
   },
   "VCS_STATE": {
     "provider": "GitHub",
